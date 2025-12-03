@@ -43,10 +43,20 @@ function ResultScreen() {
 
         {/* The Grey Box for Score Details */}
         <div className="bg-gray-50 rounded-lg p-6 mb-6 border border-gray-100">
-          <p className="text-gray-500 text-sm uppercase tracking-wide mb-2 font-semibold">Final Score</p>
-          <p className="text-4xl font-bold text-gray-800">
-            {state.score} <span className="text-xl text-gray-400">/ {questions.length}</span>
+          <p className="text-gray-500 text-sm uppercase tracking-wide mb-2 font-semibold">
+            Final Score
           </p>
+          <div className="flex justify-center items-baseline gap-1">
+            {/* The User's Score (Big & Dark) */}
+            <span className="text-4xl font-bold text-gray-900">
+              {state.score}
+            </span>
+            
+            {/* The Total Questions (Small & Grey) */}
+            <span className="text-xl font-medium text-gray-400">
+              / {questions.length}
+            </span>
+          </div>
         </div>
 
         <button
