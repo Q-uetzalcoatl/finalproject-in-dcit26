@@ -36,27 +36,17 @@ function ResultScreen() {
 
         <h2 className="text-3xl font-bold text-gray-800 mb-2">Quiz Complete!</h2>
         
-        {/* Dynamic Message Badge (Excellent/Good Job) */}
+        {/* Dynamic Message Badge */}
         <div className={`inline-block px-6 py-2 rounded-full text-lg font-semibold mb-6 border ${bgColor}`}>
           {message}
         </div>
 
         {/* The Grey Box for Score Details */}
         <div className="bg-gray-50 rounded-lg p-6 mb-6 border border-gray-100">
-          <p className="text-gray-500 text-sm uppercase tracking-wide mb-2 font-semibold">
-            Final Score
+          <p className="text-gray-500 text-sm uppercase tracking-wide mb-2 font-semibold">Final Score</p>
+          <p className="text-4xl font-bold text-gray-800">
+            {state.score} / {questions.length}
           </p>
-          <div className="flex justify-center items-baseline gap-1">
-            {/* The User's Score (Big & Dark) */}
-            <span className="text-4xl font-bold text-gray-900">
-              {state.score}
-            </span>
-            
-            {/* The Total Questions (Small & Grey) */}
-            <span className="text-xl font-medium text-gray-400">
-              / {questions.length}
-            </span>
-          </div>
         </div>
 
         <button
