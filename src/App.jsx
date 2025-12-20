@@ -1,40 +1,22 @@
-import React, { useState, useEffect } from 'react';
-// We removed "/components" so it looks for files in the same folder
-import Login from './Login.jsx';
-import Quiz from './Quiz.jsx';
-import Admin from './Admin.jsx';
+import React from 'react';
+import { QuizProvider, useQuiz } from './context/QuizContext';
+import QuizScreen from './components/QuizScreen';
+import ResultScreen from './components/ResultScreen';
+
+function QuizContent() {
+  const { state } = useQuiz();
+  return state.showResults ? <ResultScreen /> : <QuizScreen />;
+}
 
 function App() {
-  // --- MOCK DATABASE STATE ---
-  const [studentsData, setStudentsData] = useState(() => {
-    const saved = localStorage.getItem('studentsData');
-    return saved ? JSON.parse(saved) : [];
-  });
+  return (
+    <QuizProvider>
+      <QuizContent />
+    </QuizProvider>
+  );
+}
 
-  const [isScoreReleased, setIsScoreReleased] = useState(() => {
-    return localStorage.getItem('isScoreReleased') === 'true';
-  });
-
-  // --- SESSION STATE ---
-  const [currentUser, setCurrentUser] = useState(null);
-
-  // Save to LocalStorage whenever data changes
-  useEffect(() => {
-    localStorage.setItem('studentsData', JSON.stringify(studentsData));
-    localStorage.setItem('isScoreReleased', isScoreReleased);
-  }, [studentsData, isScoreReleased]);
-
-  // HANDLERS
-  const handleLogin = (user) => {
-    setCurrentUser(user);
-  };
-
-  const handleQuizSubmit = (result) => {
-    setStudentsData((prev) => {
-      // Remove old submission if any (prevents duplicates)
-      const filtered = prev.filter(s => s.studentId !== result.studentId);
-      return [...filtered, result];
-    });
+export default App;    });
   };
 
   const handleReleaseScores = () => {
