@@ -5,8 +5,6 @@ import Admin from './components/Admin';
 
 function App() {
   // --- MOCK DATABASE STATE ---
-  // In a real app, this would be in a proper database.
-  // Here, we load from LocalStorage so data persists on refresh.
   const [studentsData, setStudentsData] = useState(() => {
     const saved = localStorage.getItem('studentsData');
     return saved ? JSON.parse(saved) : [];
@@ -17,7 +15,7 @@ function App() {
   });
 
   // --- SESSION STATE ---
-  const [currentUser, setCurrentUser] = useState(null); // { role, id, name }
+  const [currentUser, setCurrentUser] = useState(null);
 
   // Save to LocalStorage whenever data changes
   useEffect(() => {
@@ -31,10 +29,57 @@ function App() {
   };
 
   const handleQuizSubmit = (result) => {
-    // Save the student's result to our "Database"
     setStudentsData((prev) => {
-      // Remove old submission if any (for simple testing)
+      // Remove old submission if any (prevents duplicates)
       const filtered = prev.filter(s => s.studentId !== result.studentId);
+      return [...filtered, result];
+    });
+  };
+
+  const handleReleaseScores = () => {
+    setIsScoreReleased(true);
+    alert("Scores have been released to all students!");
+  };
+
+  const handleReset = () => {
+    if(confirm("Are you sure? This deletes all data.")) {
+      setStudentsData([]);
+      setIsScoreReleased(false);
+      localStorage.clear();
+      window.location.reload();
+    }
+  }
+
+  // ROUTING LOGIC
+  if (!currentUser) {
+    return <Login onLogin={handleLogin} />;
+  }
+
+  if (currentUser.role === 'admin') {
+    return (
+      <Admin 
+        studentsData={studentsData} 
+        isScoreReleased={isScoreReleased}
+        onReleaseScores={handleReleaseScores}
+        onResetSystem={handleReset}
+      />
+    );
+  }
+
+  if (currentUser.role === 'student') {
+    return (
+        <Quiz 
+            user={currentUser} 
+            onSubmit={handleQuizSubmit} 
+            isScoreReleased={isScoreReleased} 
+        />
+    );
+  }
+
+  return <div>Loading...</div>;
+}
+
+export default App;      const filtered = prev.filter(s => s.studentId !== result.studentId);
       return [...filtered, result];
     });
   };
