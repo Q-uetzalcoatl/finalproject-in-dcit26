@@ -15,51 +15,7 @@ function App() {
     </QuizProvider>
   );
 }
-
-export default App;    );
-  };
-
-  const handleReleaseScores = () => {
-    setIsScoreReleased(true);
-    alert("Scores have been released to all students!");
-  };
-
-  const handleReset = () => {
-    if(confirm("Are you sure? This deletes all data.")) {
-      setStudentsData([]);
-      setIsScoreReleased(false);
-      localStorage.clear();
-      window.location.reload();
-    }
-  }
-
-  // ROUTING LOGIC
-  if (!currentUser) {
-    return <Login onLogin={handleLogin} />;
-  }
-
-  if (currentUser.role === 'admin') {
-    return (
-      <Admin 
-        studentsData={studentsData} 
-        isScoreReleased={isScoreReleased}
-        onReleaseScores={handleReleaseScores}
-        onResetSystem={handleReset}
-      />
-    );
-  }
-
-  if (currentUser.role === 'student') {
-    return (
-        <Quiz 
-            user={currentUser} 
-            onSubmit={handleQuizSubmit} 
-            isScoreReleased={isScoreReleased} 
-        />
-    );
-  }
-
-  return <div>Loading...</div>;
+export default App;  return <div>Loading...</div>;
 }
 
 export default App;      const filtered = prev.filter(s => s.studentId !== result.studentId);
