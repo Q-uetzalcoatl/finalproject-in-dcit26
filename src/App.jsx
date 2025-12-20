@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Login from './components/Login';
-import Quiz from './components/Quiz';
-import Admin from './components/Admin';
+// We removed "/components" so it looks for files in the same folder
+import Login from './Login.jsx';
+import Quiz from './Quiz.jsx';
+import Admin from './Admin.jsx';
 
 function App() {
   // --- MOCK DATABASE STATE ---
