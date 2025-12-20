@@ -87,4 +87,57 @@ function Login({ onLogin }) {
   );
 }
 
+export default Login;          <button
+            className={`flex-1 py-2 rounded-md font-medium transition-all ${role === 'student' ? 'bg-white shadow-sm text-indigo-600' : 'text-gray-500'}`}
+            onClick={() => setRole('student')}
+          >
+            Student
+          </button>
+          <button
+            className={`flex-1 py-2 rounded-md font-medium transition-all ${role === 'admin' ? 'bg-white shadow-sm text-indigo-600' : 'text-gray-500'}`}
+            onClick={() => setRole('admin')}
+          >
+            Instructor
+          </button>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {role === 'student' ? (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Student ID</label>
+              <input
+                type="text"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                placeholder="Enter ID (e.g., 2023-01)"
+                value={id}
+                onChange={(e) => setId(e.target.value)}
+              />
+            </div>
+          ) : (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Admin Password</label>
+              <input
+                type="password"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                placeholder="Enter Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+          )}
+
+          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+
+          <button
+            type="submit"
+            className="w-full bg-indigo-600 text-white py-3 rounded-lg font-bold hover:bg-indigo-700 transition-colors"
+          >
+            {role === 'student' ? 'Start Exam' : 'Access Dashboard'}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
 export default Login;
